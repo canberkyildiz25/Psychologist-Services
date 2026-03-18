@@ -1,14 +1,8 @@
-import { ref, query, orderByKey, limitToFirst, get } from "firebase/database";
+import { ref, get } from "firebase/database";
 import { db } from "./firebase";
 
-export const fetchPsychologists = async (limit) => {
-  const q = query(
-    ref(db, "psychologists"),
-    orderByKey(),
-    limitToFirst(limit)
-  );
-  const snapshot = await get(q);
+export const fetchPsychologists = async () => {
+  const snapshot = await get(ref(db, "psychologists"));
   if (!snapshot.exists()) return [];
-
   return Object.entries(snapshot.val()).map(([id, data]) => ({ id, ...data }));
 };

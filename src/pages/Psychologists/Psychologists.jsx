@@ -30,7 +30,7 @@ export default function Psychologists() {
 
   useEffect(() => {
     setLoading(true);
-    fetchPsychologists(999)
+    fetchPsychologists()
       .then((data) => {
         if (data.length > 0) {
           isFirebase.current = true;

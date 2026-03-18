@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { psychologists } from "../../data/psychologists";
+import { fetchPsychologists } from "../../firebase/database";
+import { psychologists as localData } from "../../data/psychologists";
 import PsychologistCard from "../../components/PsychologistCard/PsychologistCard";
 import styles from "./Home.module.css";
 
@@ -36,7 +37,13 @@ function AnimatedCard({ psychologist, index }) {
 
 export default function Home() {
   const [sectionRef, sectionVisible] = useInView(0.05);
-  const preview = psychologists.slice(0, 3);
+  const [preview, setPreview] = useState(localData.slice(0, 3));
+
+  useEffect(() => {
+    fetchPsychologists()
+      .then((data) => { if (data.length > 0) setPreview(data.slice(0, 3)); })
+      .catch(() => {});
+  }, []);
 
   return (
     <main className={styles.page}>

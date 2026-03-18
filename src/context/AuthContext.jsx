@@ -8,8 +8,13 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuthChanges((firebaseUser) => {
-      setUser(firebaseUser);
+    const unsubscribe = subscribeToAuthChanges(async (firebaseUser) => {
+      if (firebaseUser) {
+        await firebaseUser.reload();
+        setUser({ ...firebaseUser });
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
     return unsubscribe;
