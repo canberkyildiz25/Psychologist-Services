@@ -22,7 +22,7 @@ minutes of a clock face: five sixths of a circle.
 | A tinted square | At least one person is free in that hour |
 | A warmer tint | More people are free: one, two or three, four or more |
 | The number and the small faces | How many, and who (up to three shown) |
-| An outlined square | An hour you have asked for |
+| An outlined square with a tick | An hour you have asked for |
 | A grey square | Nobody is free |
 | The tall grey column | Sunday. The practice is closed |
 
@@ -39,9 +39,10 @@ stall (MISE), so this one is the plain one.
 - **Photographs do the warming.** Every room and portrait is lit the same
   way, against the same slate wall, with one terracotta object in it. The
   interface around them stays plain so they can.
-- One radius (`--r`, 12px; 8px for the squares). No shadows, no gradients,
-  no glass, no cards floating on cards. Sections are separated by a
-  hairline.
+- One radius system (`--r` 12px, `--r-sm` 8px for the squares, `--r-pill`).
+  No shadows, no gradients, no glass, no cards floating on cards, no stripe
+  down the side of a panel. Sections are separated by a hairline.
+- Padding, margins and gaps sit on a 4px scale.
 - A dark theme follows the system and can be switched by hand.
 
 Tokens live at the top of `app/globals.css`. Use them by name; do not write
@@ -104,7 +105,8 @@ pretends.
 ## Motion
 
 Small and functional: the headline and photograph rise once on load, the
-dialog comes up from below, squares and buttons press in. Nothing loops,
+dialog comes up from below and leaves faster than it came, squares and
+buttons press in. Hover effects are only for devices that hover. Nothing loops,
 nothing scrolls on its own. `prefers-reduced-motion` turns all of it off,
 smooth scrolling included.
 

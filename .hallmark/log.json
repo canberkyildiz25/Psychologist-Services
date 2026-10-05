@@ -13,5 +13,12 @@
     "verification": "tsc + eslint clean; next build clean (16 static pages); 260/260 checks on the exported site: no sideways scroll at 320-1440 on five routes, console clean, structure and headings, timetable counts, keyboard (single tab stop, arrows, focus return), filter, request and cancel flows, nothing personal stored, shortlist, both themes, phone layout and 44px targets, no-JS content, reduced motion, fixed-clock cases (Saturday night, far time zone, stable timetable)",
     "critique": "P5 H4 E4 S5 R5 V4",
     "note": "No ratings or testimonials on purpose: the people are invented. Profile pages are noindex."
+  },
+  {
+    "date": "2026-10-05",
+    "scope": "app (gate sweep)",
+    "change": "Ran the 58 gates and the design-engineering review on the finished build. Fixed: side-stripe on the notice panel (5), stamp fields (20), a neutral under 0.005 chroma (22), spacing off the 4px scale, 61 values (24), footer measure (25), missing hover and active states (26), transforms without a reduced-motion fallback (27), border-width change and collapsing message slot on fields (39), the asked-for outline at 2.96:1 on the warmest tint, now ink with a tick (40), symmetric hero padding (44). Dialog now uses transitions with a quicker exit; hover styles gated to hover devices.",
+    "verification": "282/282 checks on the exported site, 320 to 1920 px",
+    "judgement": "Nav is N1a with three destinations and no button, kept because the site is a tool with three places; the tinted timetable is data, not accent decoration."
   }
 ]

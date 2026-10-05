@@ -32,6 +32,9 @@ function elsewhere(start: number): string | null {
   return new Intl.DateTimeFormat('en-GB', { weekday: 'long', hour: '2-digit', minute: '2-digit' }).format(date);
 }
 
+/** How long the closing transition in globals.css takes, with a little to spare. */
+const LEAVE_MS = 160;
+
 interface Errors {
   name?: string;
   email?: string;
@@ -81,7 +84,7 @@ export function RequestDialog({ slots, onClose }: { slots: Slot[]; onClose: () =
     const name = String(data.get('name') ?? '').trim();
     const email = String(data.get('email') ?? '').trim();
     const next: Errors = {};
-    if (name.length < 2) next.name = 'Enter the name you would like to be called.';
+    if (name.length < 2) next.name = 'Enter a name, even a first name.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) next.email = 'Enter an email address, like name@example.com.';
     setErrors(next);
     if (next.name || next.email) {
@@ -96,7 +99,7 @@ export function RequestDialog({ slots, onClose }: { slots: Slot[]; onClose: () =
   const title = done ? 'Request noted' : asked ? 'You asked for this hour' : person ? `Ask ${firstName(person)} for this hour` : 'Who would you like to see?';
 
   return (
-    <dialog ref={dialog} className="sheet" aria-labelledby={`${id}-title`} onClose={onClose} onClick={onBackdrop}>
+    <dialog ref={dialog} className="sheet" aria-labelledby={`${id}-title`} onClose={() => window.setTimeout(onClose, LEAVE_MS)} onClick={onBackdrop}>
       <div className="sheet__in">
         <div className="sheet__head">
           <div>
@@ -163,11 +166,15 @@ export function RequestDialog({ slots, onClose }: { slots: Slot[]; onClose: () =
                 name="name"
                 autoComplete="name"
                 aria-invalid={errors.name ? true : undefined}
-                aria-describedby={errors.name ? `${id}-name-error` : undefined}
+                aria-describedby={errors.name ? `${id}-name-error` : `${id}-name-hint`}
               />
-              {errors.name && (
+              {errors.name ? (
                 <p id={`${id}-name-error`} className="field__error">
                   {errors.name}
+                </p>
+              ) : (
+                <p id={`${id}-name-hint`} className="field__hint">
+                  What you would like to be called.
                 </p>
               )}
             </div>

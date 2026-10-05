@@ -1,5 +1,6 @@
 'use client';
 
+import { Check } from '@phosphor-icons/react';
 import { useId, useMemo, useState, type KeyboardEvent } from 'react';
 import { NO_FILTERS, isFiltered, matches, type Filters } from '@/lib/filter';
 import { PEOPLE, firstName, personBySlug, portrait } from '@/lib/people';
@@ -161,6 +162,7 @@ export function Timetable() {
               const place = { gridColumn: column + 2, gridRow: row + 2 };
               const free = cells.get(key);
               if (!free) return <div key={key} className="hour--none" style={place} aria-hidden="true" />;
+              const asked = free.some((slot) => mine.has(slot.id));
               return (
                 <button
                   key={key}
@@ -168,15 +170,16 @@ export function Timetable() {
                   className="hour"
                   style={place}
                   data-level={level(free.length)}
-                  data-mine={free.some((slot) => mine.has(slot.id)) || undefined}
+                  data-mine={asked || undefined}
                   data-c={column}
                   data-r={row}
                   tabIndex={key === cursorKey ? 0 : -1}
-                  aria-label={`${dateLong(day.key)}, ${hourLabel(hour)}: ${free.length} free`}
+                  aria-label={`${dateLong(day.key)}, ${hourLabel(hour)}: ${free.length} free${asked ? ', you asked for this hour' : ''}`}
                   onFocus={() => setCursor(key)}
                   onClick={() => setOpen(free)}
                 >
                   <span>
+                    {asked && <Check size={16} weight="bold" aria-hidden="true" />}
                     <b className="nums">{free.length}</b> free
                   </span>
                   <span className="faces">
@@ -204,16 +207,20 @@ export function Timetable() {
           {dayHours.map((hour) => {
             const free = cells.get(cellKey(dayKey, hour)) ?? [];
             const names = free.map((slot) => personBySlug(slot.person)).flatMap((person) => (person ? [firstName(person)] : []));
+            const asked = free.some((slot) => mine.has(slot.id));
             return (
               <button
                 key={hour}
                 type="button"
                 className="hour"
                 data-level={level(free.length)}
-                data-mine={free.some((slot) => mine.has(slot.id)) || undefined}
+                data-mine={asked || undefined}
                 onClick={() => setOpen(free)}
               >
-                <b>{hourLabel(hour)}</b>
+                <b>
+                  {asked && <Check size={16} weight="bold" aria-hidden="true" />}
+                  {hourLabel(hour)}
+                </b>
                 <span>{names.join(', ')}</span>
               </button>
             );
@@ -224,18 +231,22 @@ export function Timetable() {
 
       <div className="key">
         <span data-level="1">
-          <i /> One person free
+          <i aria-hidden="true" /> One person free
         </span>
         <span data-level="2">
-          <i /> Two or three
+          <i aria-hidden="true" /> Two or three
         </span>
         <span data-level="3">
-          <i /> Four or more
+          <i aria-hidden="true" /> Four or more
+        </span>
+        <span>
+          <Check size={16} weight="bold" aria-hidden="true" /> Outlined and ticked: you asked for it
         </span>
         <span>All times are İstanbul time (UTC+3).</span>
       </div>
 
-      {open && <RequestDialog key={open[0].id} slots={open} onClose={() => setOpen(null)} />}
+      {/* a square chosen while the last dialog is still leaving must not be closed by it */}
+      {open && <RequestDialog key={open[0].id} slots={open} onClose={() => setOpen((current) => (current === open ? null : current))} />}
     </>
   );
 }

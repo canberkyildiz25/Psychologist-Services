@@ -65,7 +65,7 @@ export function PersonHours({ slug, name }: { slug: string; name: string }) {
       <p className="their-hours__note">
         All times are İstanbul time (UTC+3). An outlined hour is one you have asked for.
       </p>
-      {open && <RequestDialog key={open.id} slots={[open]} onClose={() => setOpen(null)} />}
+      {open && <RequestDialog key={open.id} slots={[open]} onClose={() => setOpen((current) => (current === open ? null : current))} />}
     </>
   );
 }
