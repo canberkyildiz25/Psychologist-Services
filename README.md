@@ -1,144 +1,85 @@
-# 🧠 Psychologist Services
+# FIFTY
 
-A modern web application for browsing, filtering, and booking appointments with professional psychologists.
+A demonstration practice where **you pick the hour first and the person
+second**. Ten psychologists share one timetable; the week is a grid of hours,
+and a square is tinted when someone can see you then.
 
----
+Live: https://resilient-salmiakki-c08a67.netlify.app
 
-## ✨ Features
+This is a rebuild of Psychologist Services, a course project that listed
+psychologists as cards with a booking form on each. The first version is in
+the repository's history.
 
-- **Home Page** — Welcoming hero section with animated floating elements, company slogan and a CTA link to the Psychologists page
-- **Psychologists Page** — Browse all psychologists with sorting options:
-  - Alphabetical (A → Z / Z → A)
-  - Price (Low → High / High → Low)
-  - Popularity / Rating (Low → High / High → Low)
-  - Load more pagination (3 cards per page)
-- **Favorites Page** — Private page showing psychologists saved by the logged-in user
-- **Authentication** — Register & login with email/password via Firebase Auth
-- **Appointment Booking** — Modal form to book a session with any psychologist
-- **Responsive Design** — Fully responsive from 320px to 1440px+ screens
+**Nobody on this site exists.** The psychologists, their hours and their fees
+are invented, and the portraits and rooms were made with an image generator.
+Nothing a visitor types is sent anywhere.
 
----
+## What it does
 
-## 🛠 Tech Stack
+- A timetable of every open fifty-minute session for the next seven days,
+  tinted by how many people are free. Narrow it by what it is about, how you
+  meet and which language.
+- Choosing an hour shows who is free in it, then a short request form, then
+  a reference.
+- A directory of the ten people with their next free hour, sortable by who
+  is free soonest, fee or years in practice.
+- A page per person with their open hours for the week.
+- "Requests": the hours you asked for and a shortlist, kept in the browser.
+  No account.
+- Light and dark themes, keyboard control of the timetable (arrow keys),
+  reduced motion respected, readable without JavaScript.
 
-| Category | Technology |
-|---|---|
-| Framework | React 19 + Vite |
-| Routing | React Router v7 |
-| Auth & Database | Firebase (Auth + Realtime DB) |
-| Forms & Validation | React Hook Form + Yup |
-| Styling | CSS Modules |
+## How availability works
 
----
+There is no booking system behind the site. Each person has fixed weekly
+hours in `lib/people.ts`, and `lib/schedule.ts` treats a stable share of them
+as already taken, using a hash of the person, date and hour. The same hour is
+therefore free or taken on every load, and the timetable moves forward with
+the clock. Times are İstanbul time (UTC+3); an hour can be asked for until
+two hours before it starts.
 
-## 📁 Project Structure
+Because the site is a static export, all of this runs in the browser.
 
-```
-src/
-├── components/
-│   ├── Header/             # Navigation bar with auth controls
-│   ├── PsychologistCard/   # Card with read more, favorites & booking
-│   ├── FilterDropdown/     # Sorting dropdown
-│   ├── AuthModal/          # Login & register modal
-│   └── AppointmentModal/   # Appointment booking modal
-├── pages/
-│   ├── Home/               # Landing page with hero section
-│   ├── Psychologists/      # Full list with sorting & pagination
-│   └── Favorites/          # User's saved psychologists (private)
-├── context/
-│   └── FavoritesContext/   # Global favorites state
-├── firebase/
-│   ├── config.js           # Firebase initialization
-│   ├── auth.js             # Auth functions
-│   └── database.js         # Database read/write functions
-└── data/
-    └── psychologists.js    # Local fallback data
-```
+## Stack
 
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/canberkyildiz25/Psychologist-Services.git
-cd Psychologist-Services
-```
-
-### 2. Install dependencies
+Next.js 16 (static export), React 19, TypeScript, Tailwind CSS 4, Zustand for
+the browser-side store, Phosphor icons. Lexend and Source Sans 3 through
+`next/font`.
 
 ```bash
 npm install
-```
-
-### 3. Set up Firebase
-
-- Go to [Firebase Console](https://console.firebase.google.com) and create a project
-- Enable **Email/Password** authentication
-- Create a **Realtime Database** (Test mode)
-- Import `psychologists.json` to the database root
-- Copy your Firebase config keys
-
-### 4. Configure environment variables
-
-Create a `.env` file in the project root (use `.env.example` as a template):
-
-```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-VITE_FIREBASE_DATABASE_URL=https://your_project-default-rtdb.firebaseio.com
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
-```
-
-### 5. Set Firebase Database Rules
-
-In Firebase Console → Realtime Database → Rules:
-
-```json
-{
-  "rules": {
-    "psychologists": {
-      ".read": true,
-      ".write": false
-    },
-    "users": {
-      "$uid": {
-        ".read": "auth != null && auth.uid == $uid",
-        ".write": "auth != null && auth.uid == $uid"
-      }
-    }
-  }
-}
-```
-
-### 6. Run the development server
-
-```bash
 npm run dev
 ```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
----
-
-## 📦 Build for Production
 
 ```bash
 npm run build
 ```
 
-The output will be in the `dist/` folder. Deploy to **Netlify**, **Vercel**, or any static host.
+`npm run build` writes the site to `out/` and then runs
+`scripts/flatten-segments.mjs`, which copies Next's prefetch files to the
+names the browser asks for (Next 16 writes them into folders, which a plain
+file host answers with 404).
 
-> **Note:** Add your `.env` variables to your hosting platform's environment settings before deploying.
+## Layout of the code
 
----
+| Path | What is there |
+| --- | --- |
+| `app/` | Pages: home, `people/`, `people/[slug]/`, `requests/`, 404 |
+| `components/Timetable.tsx` | The week grid, the phone day view, the filters |
+| `components/RequestDialog.tsx` | Who is free, the form, the receipt |
+| `components/Directory.tsx` | The list of people with filters and order |
+| `lib/people.ts` | The ten invented practitioners |
+| `lib/schedule.ts` | Open hours and how dates are said |
+| `lib/store.ts` | Requests and shortlist, and the current minute |
+| `design.md` | The design system and the reasons behind it |
 
-## 🔒 Security
+## Images
 
-- `.env` is in `.gitignore` — Firebase keys are never committed to git
-- Firebase Rules restrict user data to authenticated owners only
-- Psychologist data is publicly readable but not writable from the client
+The portraits and rooms were generated for this project with Pollinations
+(Z-Image Turbo, and Qwen Image for the first room) from prompts that fix the
+same light, wall and accent colour, then cut to size as WebP. No photograph
+of a real person is used.
+
+## Author
+
+Canberk Yıldız · https://canberkyildiz.netlify.app

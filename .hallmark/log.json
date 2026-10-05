@@ -1,0 +1,17 @@
+[
+  {
+    "date": "2026-10-05",
+    "scope": "app",
+    "stack": "Next.js 16 (static export) + React 19 + TS + Tailwind 4 + Zustand; native dialog",
+    "macrostructure": "Tool first: split hero with one photograph, then the week as a grid of open hours, then the fifty minutes as a proportional bar, a wall of ten portraits, two photographs for the two ways of meeting; directory, profile and requests pages",
+    "nav": "Wordmark with a five-sixths clock mark, three links with a request count, theme switch; a bar at the bottom on phones",
+    "footer": "Two columns: this is a demonstration, and where to turn in an emergency",
+    "theme": "custom: a quiet practice. Light grey-blue ground, slate ink, terracotta as the only accent and only for an hour you can have. Photographs carry the warmth. Dark theme follows the system (design.md)",
+    "type": "Lexend (headings, controls, timetable) + Source Sans 3 (text)",
+    "enrichment": "Sixteen generated photographs with one light, one wall colour and one accent: ten portraits and six rooms. The timetable itself, tinted by how many people are free, with their faces in the squares",
+    "motion": "Hero rises once, dialog comes up, controls press in. Reduced-motion safe.",
+    "verification": "tsc + eslint clean; next build clean (16 static pages); 260/260 checks on the exported site: no sideways scroll at 320-1440 on five routes, console clean, structure and headings, timetable counts, keyboard (single tab stop, arrows, focus return), filter, request and cancel flows, nothing personal stored, shortlist, both themes, phone layout and 44px targets, no-JS content, reduced motion, fixed-clock cases (Saturday night, far time zone, stable timetable)",
+    "critique": "P5 H4 E4 S5 R5 V4",
+    "note": "No ratings or testimonials on purpose: the people are invented. Profile pages are noindex."
+  }
+]
