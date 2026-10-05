@@ -1,18 +1,19 @@
 @import 'tailwindcss';
 
 /* Hallmark · macrostructure: tool first (the timetable is the page) · theme: custom "terracotta and slate"
- * genre: trust-first service · nav: N1a, three destinations, a bar under the thumb on phones · footer: Ft5, two statements
- * pre-emit critique: P5 H4 E4 S5 R5 V4
+ * genre: modern-minimal, trust-first service · nav: N1a, three destinations, a bar under the thumb on phones · footer: Ft5, two statements
+ * pre-emit critique: P5 H5 E4 S5 R5 V4
  * contrast: pass (40-41) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · icons: pass (30) · mobile: pass (34, 49, 50-57)
  *
  * A quiet practice. Slate carries the page; terracotta is the one accent and
  * it always means the same thing: an hour you can have, or the thing that
- * takes you to one. Photographs do the warming, so the interface stays plain.
+ * takes you to one. Photographs do the warming, so the interface stays plain:
+ * one typeface, no rules between sections, nothing that is not needed.
  */
 
 @theme static {
-  --font-display: var(--font-lexend), system-ui, sans-serif;
-  --font-sans: var(--font-source), system-ui, sans-serif;
+  --font-display: var(--font-albert), system-ui, sans-serif;
+  --font-sans: var(--font-albert), system-ui, sans-serif;
 
   --color-ground: var(--ground);
   --color-raised: var(--raised);
@@ -26,12 +27,12 @@
 }
 
 :root {
-  --ground: oklch(0.968 0.007 245);
-  --raised: oklch(0.995 0.005 245);
-  --sunk: oklch(0.94 0.009 245);
+  --ground: oklch(0.985 0.005 245);
+  --raised: oklch(0.998 0.005 245);
+  --sunk: oklch(0.955 0.008 245);
   --ink: oklch(0.27 0.03 252);
   --ink-2: oklch(0.44 0.025 252);
-  --line: oklch(0.86 0.013 245);
+  --line: oklch(0.9 0.011 245);
   /* the edge of a control: 3:1 against the ground, where a hairline is not */
   --edge: oklch(0.6 0.02 250);
   --accent: oklch(0.54 0.15 40);
@@ -105,8 +106,8 @@
     background: var(--ground);
     color: var(--ink);
     font-family: var(--font-sans);
-    font-size: 1.125rem;
-    line-height: 1.55;
+    font-size: 1.0625rem;
+    line-height: 1.6;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -116,7 +117,7 @@
   h3 {
     font-family: var(--font-display);
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.06;
     letter-spacing: -0.03em;
     text-wrap: balance;
@@ -271,8 +272,8 @@
     min-height: 2.75rem;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.2rem;
-    letter-spacing: 0.02em;
+    font-size: 1.05rem;
+    letter-spacing: 0.14em;
     text-decoration: none;
     white-space: nowrap;
   }
@@ -409,7 +410,8 @@
     padding-block: clamp(2rem, 4.5vw, 4rem) clamp(2.75rem, 6.3vw, 5.5rem);
   }
   .hero h1 {
-    font-size: clamp(2.2rem, 4.7vw, 4.25rem);
+    font-size: clamp(2.3rem, 4.9vw, 4.5rem);
+    letter-spacing: -0.035em;
   }
   .hero h1 span {
     display: block;
@@ -456,19 +458,22 @@
   }
   @media (min-width: 60rem) {
     .hero {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: clamp(2.5rem, 5vw, 5rem);
       align-items: center;
+    }
+    /* on a wide screen the photograph is a square: more of the room, same width */
+    .hero__image {
+      aspect-ratio: 1 / 1;
     }
   }
 
   /* ---------- Sections ---------- */
   .section {
-    padding-block: clamp(3rem, 7vw, 6rem);
-    border-top: 1px solid var(--line);
+    padding-block: clamp(2.5rem, 5.5vw, 5rem);
   }
   .section h2 {
-    font-size: clamp(1.8rem, 3.4vw, 2.75rem);
+    font-size: clamp(1.8rem, 3.4vw, 2.85rem);
     max-width: 22ch;
   }
   .section__lede {
@@ -650,7 +655,7 @@
   .hour {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.5rem;
     min-height: 2.9rem;
     padding: 0.25rem 0.5rem;
@@ -694,29 +699,6 @@
     min-height: 2.9rem;
     border-radius: var(--r-sm);
     background: var(--sunk);
-  }
-  .faces {
-    display: flex;
-    flex: none;
-  }
-  .faces img {
-    width: 1.6rem;
-    height: 1.6rem;
-    border-radius: var(--r-pill);
-    object-fit: cover;
-    object-position: 50% 20%;
-    box-shadow: 0 0 0 2px var(--free);
-  }
-  .faces img + img {
-    margin-left: -0.5rem;
-  }
-  @media (max-width: 71.99rem) {
-    .hour .faces {
-      display: none;
-    }
-    .hour {
-      justify-content: center;
-    }
   }
   .skeleton {
     min-height: 2.9rem;
@@ -1070,7 +1052,11 @@
   @media (min-width: 52rem) {
     .band {
       aspect-ratio: 2 / 1;
-      object-position: 50% 90%;
+      object-position: 50% 82%;
+    }
+    .band--slim {
+      aspect-ratio: 3 / 1;
+      object-position: 50% 78%;
     }
   }
 
@@ -1168,6 +1154,7 @@
   .person h2 {
     font-size: 1.4rem;
     letter-spacing: -0.02em;
+    font-weight: 500;
   }
   .person__title {
     margin-top: 0.25rem;
@@ -1263,7 +1250,7 @@
     }
     .formats > figure img {
       aspect-ratio: 4 / 5;
-      object-position: 74% 50%;
+      object-position: 52% 50%;
     }
   }
 
@@ -1554,5 +1541,80 @@
   .daytabs button:active,
   .face:hover img {
     transform: none;
+  }
+}
+
+/* The closing invitation: a photograph and one sentence. */
+@layer components {
+  .closing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: center;
+  }
+  .closing img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--r);
+  }
+  .closing p {
+    margin-top: 1rem;
+    max-width: 28rem;
+    color: var(--ink-2);
+  }
+  .closing .btn {
+    margin-top: 1.75rem;
+  }
+  @media (min-width: 52rem) {
+    .closing {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(2rem, 5vw, 5rem);
+    }
+    .closing img {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  /* ---------- About ---------- */
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding-block: 2.5rem clamp(3rem, 6vw, 5rem);
+  }
+  .about section {
+    max-width: 40rem;
+  }
+  .about h2 {
+    font-size: 1.6rem;
+  }
+  .about p {
+    margin-top: 0.75rem;
+    color: var(--ink-2);
+  }
+  .about .btn {
+    margin-top: 1.25rem;
+  }
+  .about__status {
+    min-height: 1lh;
+  }
+  @media (min-width: 60rem) {
+    .about {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 3.5rem clamp(2.5rem, 6vw, 6rem);
+    }
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer__links,
+  .filters,
+  .hero__actions,
+  .skip-link {
+    display: none;
   }
 }

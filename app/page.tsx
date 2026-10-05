@@ -1,9 +1,14 @@
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { NextOpen } from '@/components/NextOpen';
 import { Timetable } from '@/components/Timetable';
 import { PEOPLE, portrait } from '@/lib/people';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 /* How fifty minutes usually divide. The fourth part is the ten that make up
    the hour and belong to the psychologist. */
@@ -37,8 +42,8 @@ export default function Home() {
           className="hero__image"
           src="/img/room-1600.webp"
           srcSet="/img/room-800.webp 800w, /img/room-1600.webp 1600w"
-          sizes="(min-width: 60rem) 52vw, 100vw"
-          alt="Two armchairs facing each other across a small table with a glass of water, in a room with slate grey walls"
+          sizes="(min-width: 60rem) 46vw, 100vw"
+          alt="Two rounded cream armchairs facing each other across a small stone table with a glass of water, beside a tall window full of morning light"
           width={1600}
           height={1216}
           fetchPriority="high"
@@ -48,7 +53,7 @@ export default function Home() {
       <section id="hours" className="section" aria-labelledby="hours-title">
         <div className="wrap">
           <h2 id="hours-title">Open hours, next seven days</h2>
-          <p className="section__lede">Each tinted square is an hour when someone can see you. Choose a square to find out who.</p>
+          <p className="section__lede">Each tinted square is an hour when someone can see you. The number says how many people are free. Choose a square to find out who.</p>
           <Timetable />
         </div>
       </section>
@@ -69,10 +74,10 @@ export default function Home() {
           </div>
           <img
             className="band"
-            src="/img/evening-1600.webp"
-            srcSet="/img/evening-800.webp 800w, /img/evening-1600.webp 1600w"
+            src="/img/light-1600.webp"
+            srcSet="/img/light-800.webp 800w, /img/light-1600.webp 1600w"
             sizes="(min-width: 84rem) 77rem, 92vw"
-            alt="Two armchairs with rust cushions either side of a small round table, in front of a tall window in the late afternoon"
+            alt="Morning sunlight and the shadow of leaves moving across a pale wall, above a wooden bench with a small terracotta vase"
             width={1600}
             height={1216}
             loading="lazy"
@@ -126,7 +131,7 @@ export default function Home() {
                 src="/img/chairs-1600.webp"
                 srcSet="/img/chairs-800.webp 800w, /img/chairs-1600.webp 1600w"
                 sizes="(min-width: 52rem) 55vw, 92vw"
-                alt="A terracotta armchair and a grey one at an angle to each other, with tissues and a plant on the table between"
+                alt="A rounded cream armchair with a terracotta cushion beside a small stone table holding a glass of water"
                 width={1600}
                 height={1216}
                 loading="lazy"
@@ -143,7 +148,7 @@ export default function Home() {
               src="/img/desk-1600.webp"
               srcSet="/img/desk-800.webp 800w, /img/desk-1600.webp 1600w"
               sizes="(min-width: 52rem) 38vw, 92vw"
-              alt="A laptop, headphones, a notebook and a terracotta mug on a wooden desk by a window"
+              alt="A laptop, white headphones, a small plant and a terracotta mug on a pale wooden desk by a window"
               width={1600}
               height={1216}
               loading="lazy"
@@ -154,6 +159,28 @@ export default function Home() {
               <span>Somewhere you will not be overheard, headphones, and a link that arrives with the confirmation.</span>
             </figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="closing-title">
+        <div className="wrap closing">
+          <img
+            src="/img/dunes-1600.webp"
+            srcSet="/img/dunes-800.webp 800w, /img/dunes-1600.webp 1600w"
+            sizes="(min-width: 52rem) 55vw, 92vw"
+            alt="Smooth terracotta sand dunes under a pale, misty sky"
+            width={1600}
+            height={1216}
+            loading="lazy"
+            decoding="async"
+          />
+          <div>
+            <h2 id="closing-title">Start with one hour.</h2>
+            <p>You do not have to find the right person today. Pick a time that is easy to keep, and see how the first fifty minutes feel.</p>
+            <a className="btn" href="#hours">
+              See open hours
+            </a>
+          </div>
         </div>
       </section>
     </main>

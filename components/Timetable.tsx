@@ -3,7 +3,7 @@
 import { Check } from '@phosphor-icons/react';
 import { useId, useMemo, useState, type KeyboardEvent } from 'react';
 import { NO_FILTERS, isFiltered, matches, type Filters } from '@/lib/filter';
-import { PEOPLE, firstName, personBySlug, portrait } from '@/lib/people';
+import { PEOPLE, firstName, personBySlug } from '@/lib/people';
 import { FIRST_HOUR, LAST_HOUR, dateLong, dateShort, daysFrom, hourLabel, weekdayLong, weekdayShort, type Slot } from '@/lib/schedule';
 import { useFifty, useOpenSlots } from '@/lib/store';
 import { FilterBar } from './FilterBar';
@@ -24,7 +24,8 @@ const STEPS: Record<string, [number, number] | undefined> = {
 };
 
 /** The week as a grid of hours. A square is tinted when someone can see you
-    then; choosing it shows who. On a phone it is one day at a time. */
+    then and carries the number who can; choosing it shows who. On a phone it
+    is one day at a time. */
 export function Timetable() {
   const hint = useId();
   const live = useOpenSlots();
@@ -180,12 +181,7 @@ export function Timetable() {
                 >
                   <span>
                     {asked && <Check size={16} weight="bold" aria-hidden="true" />}
-                    <b className="nums">{free.length}</b> free
-                  </span>
-                  <span className="faces">
-                    {free.slice(0, 3).map((slot) => (
-                      <img key={slot.id} src={portrait(slot.person, 160)} alt="" width={160} height={198} loading="lazy" decoding="async" />
-                    ))}
+                    <b className="nums">{free.length}</b>
                   </span>
                 </button>
               );
@@ -240,7 +236,7 @@ export function Timetable() {
           <i aria-hidden="true" /> Four or more
         </span>
         <span>
-          <Check size={16} weight="bold" aria-hidden="true" /> Outlined and ticked: you asked for it
+          <Check size={16} weight="bold" aria-hidden="true" /> Outlined: you asked for it
         </span>
         <span>All times are İstanbul time (UTC+3).</span>
       </div>

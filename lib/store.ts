@@ -25,6 +25,8 @@ interface State {
   toggleShortlist: (slug: string) => void;
   addRequest: (request: Request) => void;
   cancelRequest: (ref: string) => void;
+  /** Forget everything: requests and shortlist. */
+  reset: () => void;
 }
 
 export const useFifty = create<State>()(
@@ -38,6 +40,7 @@ export const useFifty = create<State>()(
         })),
       addRequest: (request) => set((state) => ({ requests: [...state.requests.filter((entry) => entry.slot !== request.slot), request] })),
       cancelRequest: (ref) => set((state) => ({ requests: state.requests.filter((entry) => entry.ref !== ref) })),
+      reset: () => set({ shortlist: [], requests: [] }),
     }),
     { name: 'fifty', version: 1 },
   ),

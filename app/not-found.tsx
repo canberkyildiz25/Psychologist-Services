@@ -26,8 +26,8 @@ export default function NotFound() {
           className="hero__image"
           src="/img/waiting-1600.webp"
           srcSet="/img/waiting-800.webp 800w, /img/waiting-1600.webp 1600w"
-          sizes="(min-width: 60rem) 52vw, 100vw"
-          alt="An empty waiting bench under a coat hook, beside a door that stands ajar"
+          sizes="(min-width: 60rem) 46vw, 100vw"
+          alt="An empty wooden bench and a small olive tree in a bright room, beside an open door"
           width={1600}
           height={1216}
         />

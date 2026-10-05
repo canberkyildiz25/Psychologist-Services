@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AUTHOR, SOURCE } from '@/lib/site';
 
 /** The footer carries the two things a visitor must not miss: none of this is
     real, and this site is not where to turn in an emergency. */
@@ -12,17 +13,20 @@ export function Footer() {
             FIFTY is a portfolio project by Canberk Yıldız. The psychologists, their hours and their fees are invented, and the portraits and
             rooms were made with an image generator. Nothing you type is sent anywhere.
           </p>
-          <div className="site-footer__links">
+          <nav className="site-footer__links" aria-label="More">
+            <Link className="link" href="/about/">
+              About and privacy
+            </Link>
             <Link className="link" href="/people/">
               All psychologists
             </Link>
-            <a className="link" href="https://canberkyildiz.netlify.app">
+            <a className="link" href={AUTHOR.url}>
               Canberk&rsquo;s portfolio
             </a>
-            <a className="link" href="https://github.com/canberkyildiz25/Psychologist-Services">
+            <a className="link" href={SOURCE}>
               Source on GitHub
             </a>
-          </div>
+          </nav>
         </div>
         <div>
           <h2>If you need help now</h2>

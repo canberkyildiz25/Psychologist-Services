@@ -26,6 +26,8 @@ Nothing a visitor types is sent anywhere.
 - A page per person with their open hours for the week.
 - "Requests": the hours you asked for and a shortlist, kept in the browser.
   No account.
+- "About and privacy": what is real, what is stored, and a button that
+  erases it.
 - Light and dark themes, keyboard control of the timetable (arrow keys),
   reduced motion respected, readable without JavaScript.
 
@@ -43,8 +45,7 @@ Because the site is a static export, all of this runs in the browser.
 ## Stack
 
 Next.js 16 (static export), React 19, TypeScript, Tailwind CSS 4, Zustand for
-the browser-side store, Phosphor icons. Lexend and Source Sans 3 through
-`next/font`.
+the browser-side store, Phosphor icons. Albert Sans through `next/font`.
 
 ```bash
 npm install
@@ -64,21 +65,28 @@ file host answers with 404).
 
 | Path | What is there |
 | --- | --- |
-| `app/` | Pages: home, `people/`, `people/[slug]/`, `requests/`, 404 |
+| `app/` | Pages: home, `people/`, `people/[slug]/`, `requests/`, `about/`, 404 and the error page; `robots.ts`, `sitemap.ts`, `manifest.ts` |
 | `components/Timetable.tsx` | The week grid, the phone day view, the filters |
 | `components/RequestDialog.tsx` | Who is free, the form, the receipt |
 | `components/Directory.tsx` | The list of people with filters and order |
 | `lib/people.ts` | The ten invented practitioners |
 | `lib/schedule.ts` | Open hours and how dates are said |
 | `lib/store.ts` | Requests and shortlist, and the current minute |
+| `public/_headers` | Security and caching headers for Netlify |
 | `design.md` | The design system and the reasons behind it |
 
 ## Images
 
-The portraits and rooms were generated for this project with Pollinations
-(Z-Image Turbo, and Qwen Image for the first room) from prompts that fix the
-same light, wall and accent colour, then cut to size as WebP. No photograph
-of a real person is used.
+The eighteen photographs were generated for this project with Pollinations
+(Z-Image Turbo) from prompts that fix the same light, wall and single accent
+colour, then cut to size as WebP. No photograph of a real person is used.
+
+## Checks
+
+Type check, lint and build are clean. The exported site is tested with
+Playwright (layout from 320 to 1920 px, keyboard, the request flow, both
+themes, reduced motion, no JavaScript, fixed clocks in other time zones) and
+audited with axe-core on every page, in both themes, with the dialog open.
 
 ## Author
 

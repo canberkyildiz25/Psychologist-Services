@@ -87,10 +87,6 @@ export function Directory() {
                   <dd>{person.focus.map((focus) => FOCUS[focus]).join(', ')}</dd>
                 </div>
                 <div>
-                  <dt>Approach</dt>
-                  <dd>{person.approach.join(', ')}</dd>
-                </div>
-                <div>
                   <dt>Languages</dt>
                   <dd>{person.languages.join(', ')}</dd>
                 </div>

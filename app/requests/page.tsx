@@ -20,8 +20,8 @@ export default function Requests() {
         </div>
         <img
           className="mine__image"
-          src="/img/window-800.webp"
-          srcSet="/img/window-800.webp 800w, /img/window-1600.webp 1600w"
+          src="/img/stones-800.webp"
+          srcSet="/img/stones-800.webp 800w, /img/stones-1600.webp 1216w"
           sizes="20rem"
           alt=""
           width={800}
