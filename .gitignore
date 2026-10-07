@@ -7,4 +7,3 @@ next-env.d.ts
 .netlify
 .DS_Store
 *.log
-.claude/

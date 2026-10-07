@@ -1,11 +1,6 @@
 @import 'tailwindcss';
 
-/* Hallmark · macrostructure: tool first (the timetable is the page) · theme: custom "terracotta and slate"
- * genre: modern-minimal, trust-first service · nav: N1a, three destinations, a bar under the thumb on phones · footer: Ft5, two statements
- * pre-emit critique: P5 H5 E4 S5 R5 V4
- * contrast: pass (40-41) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · icons: pass (30) · mobile: pass (34, 49, 50-57)
- *
- * A quiet practice. Slate carries the page; terracotta is the one accent and
+/* A quiet practice. Slate carries the page; terracotta is the one accent and
  * it always means the same thing: an hour you can have, or the thing that
  * takes you to one. Photographs do the warming, so the interface stays plain:
  * one typeface, no rules between sections, nothing that is not needed.
